@@ -16,6 +16,11 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import axios from 'axios';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from '@/components/ui/use-toast';
+
 
 export default function Signup() {
   const form = useForm<UserSignupInput>({
@@ -28,9 +33,27 @@ export default function Signup() {
       confirmPassword: '',
     },
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  const onSubmit = (data: UserSignupInput) => {
-    console.log(data);
+  const onSubmit = async (data: UserSignupInput) => {
+    try {
+      setIsLoading(true);
+
+      const res = await axios.post("/api/auth/signup", data);
+
+      setIsLoading(false);
+      toast({
+        title: "Signup Success",
+        description: res.data.message,
+      });
+      router.push("/login");
+
+    }
+    catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
   };
 
   return (
@@ -120,7 +143,7 @@ export default function Signup() {
                 )}
               />
 
-              <Button type="submit">Submit</Button>
+              <Button disabled={isLoading} type="submit">Submit</Button>
             </form>
           </Form>
           <div className="mt-5">

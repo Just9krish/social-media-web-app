@@ -16,6 +16,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import axios from 'axios';
+import { toast } from '@/components/ui/use-toast';
+import { useTransition } from 'react';
 
 export default function Login() {
   const form = useForm<UserLoginInput>({
@@ -26,8 +29,24 @@ export default function Login() {
     },
   });
 
+  const [isLoading, startTransition] = useTransition();
+
   const onSubmit = (data: UserLoginInput) => {
-    console.log(data);
+
+    try {
+      startTransition(async () => {
+        const res = await axios.post("/api/auth/login", data);
+
+        toast({
+          title: "Login Success",
+          description: res.data.message,
+        });
+      });
+
+
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -80,7 +99,7 @@ export default function Login() {
                 )}
               />
 
-              <Button type="submit">Submit</Button>
+              <Button disabled={isLoading} type="submit">Submit</Button>
             </form>
           </Form>
           <div className="mt-5">

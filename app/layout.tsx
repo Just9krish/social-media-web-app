@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -10,10 +11,12 @@ export const metadata: Metadata = {
   description: 'Thread Clone',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode; }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>{children}
+        <Toaster />
+      </body>
     </html>
   );
 }
