@@ -18,7 +18,10 @@ import {
 } from '@/components/ui/form';
 import axios from 'axios';
 import { toast } from '@/components/ui/use-toast';
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
+import { signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const form = useForm<UserLoginInput>({
@@ -30,11 +33,20 @@ export default function Login() {
   });
 
   const [isLoading, startTransition] = useTransition();
+  const { status } = useSession();
+  const router = useRouter();
 
   const onSubmit = (data: UserLoginInput) => {
     startTransition(async () => {
       try {
         const res = await axios.post('/api/auth/login', data);
+
+        signIn('credentials', {
+          email: data.email,
+          password: data.password,
+          callbackUrl: '/',
+          redirect: true,
+        });
 
         toast({
           title: 'Login Success',
@@ -48,6 +60,12 @@ export default function Login() {
       }
     });
   };
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/');
+    }
+  }, [status, router]);
 
   return (
     <section className="bg-background">

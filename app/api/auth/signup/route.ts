@@ -48,7 +48,15 @@ export async function POST(request: NextRequest) {
 
     const { email, name, password, username } = data;
 
-    await prisma.user.create({ data: { email, name, username, password } });
+    await prisma.user.create({
+      data: {
+        email,
+        name,
+        username,
+        password,
+        updatedAt: new Date(Date.now()),
+      },
+    });
 
     return NextResponse.json({
       status: 200,

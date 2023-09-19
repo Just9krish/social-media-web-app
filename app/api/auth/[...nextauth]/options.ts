@@ -1,7 +1,44 @@
-import { AuthOptions } from 'next-auth';
+import prisma from '@/lib/prisma';
+import { AuthOptions, ISODateString, User } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+export interface CustomSession {
+  user?: CustomUser;
+  expires: ISODateString;
+}
+export interface CustomUser {
+  id?: string | null;
+  name?: string | null;
+  username?: string | null;
+  email?: string | null;
+}
+
 export const authOptions: AuthOptions = {
+  pages: {
+    signIn: '/login',
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    async session({
+      session,
+      token,
+      user,
+    }: {
+      session: CustomSession;
+      token: JWT;
+      user: User;
+    }) {
+      session.user = token.user as CustomUser;
+      return session;
+    },
+  },
+
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -11,7 +48,19 @@ export const authOptions: AuthOptions = {
         password: {},
       },
       async authorize(credentials, req) {
-        const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com' };
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials?.email,
+          },
+          select: {
+            email: true,
+            id: true,
+            name: true,
+            username: true,
+            updatedAt: true,
+            createdAt: true,
+          },
+        });
 
         if (user) {
           return user;
