@@ -17,10 +17,9 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import axios from 'axios';
-import { useState } from 'react';
+import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from '@/components/ui/use-toast';
-
 
 export default function Signup() {
   const form = useForm<UserSignupInput>({
@@ -33,27 +32,27 @@ export default function Signup() {
       confirmPassword: '',
     },
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, startTransition] = useTransition();
   const router = useRouter();
 
-  const onSubmit = async (data: UserSignupInput) => {
-    try {
-      setIsLoading(true);
+  const onSubmit = (data: UserSignupInput) => {
+    startTransition(async () => {
+      try {
+        const res = await axios.post('/api/auth/signup', data);
 
-      const res = await axios.post("/api/auth/signup", data);
+        toast({
+          title: 'Signup Success',
+          description: res.data.message,
+        });
 
-      setIsLoading(false);
-      toast({
-        title: "Signup Success",
-        description: res.data.message,
-      });
-      router.push("/login");
-
-    }
-    catch (error) {
-      setIsLoading(false);
-      console.log(error);
-    }
+        router.push('/login');
+      } catch (error: any) {
+        toast({
+          title: 'Login Failed',
+          description: error.response.data.message || error.message,
+        });
+      }
+    });
   };
 
   return (
@@ -143,7 +142,9 @@ export default function Signup() {
                 )}
               />
 
-              <Button disabled={isLoading} type="submit">Submit</Button>
+              <Button disabled={isLoading} type="submit">
+                Submit
+              </Button>
             </form>
           </Form>
           <div className="mt-5">

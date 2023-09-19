@@ -11,10 +11,11 @@ export const metadata: Metadata = {
   description: 'Thread Clone',
 };
 
-export default function RootLayout({ children }: { children: ReactNode; }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}
+      <body className={inter.className}>
+        {children}
         <Toaster />
       </body>
     </html>

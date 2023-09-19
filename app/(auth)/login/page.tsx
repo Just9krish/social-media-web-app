@@ -32,21 +32,21 @@ export default function Login() {
   const [isLoading, startTransition] = useTransition();
 
   const onSubmit = (data: UserLoginInput) => {
-
-    try {
-      startTransition(async () => {
-        const res = await axios.post("/api/auth/login", data);
+    startTransition(async () => {
+      try {
+        const res = await axios.post('/api/auth/login', data);
 
         toast({
-          title: "Login Success",
+          title: 'Login Success',
           description: res.data.message,
         });
-      });
-
-
-    } catch (error) {
-      console.log(error);
-    }
+      } catch (error: any) {
+        toast({
+          title: 'Login Failed',
+          description: error.response.data.message || error.message,
+        });
+      }
+    });
   };
 
   return (
@@ -99,7 +99,9 @@ export default function Login() {
                 )}
               />
 
-              <Button disabled={isLoading} type="submit">Submit</Button>
+              <Button disabled={isLoading} type="submit">
+                Submit
+              </Button>
             </form>
           </Form>
           <div className="mt-5">

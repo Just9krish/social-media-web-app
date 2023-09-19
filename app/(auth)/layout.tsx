@@ -7,6 +7,6 @@ export const metadata: Metadata = {
   description: 'The Threads app Auth pages.',
 };
 
-export default function LoginLayout({ children }: { children: ReactNode; }) {
+export default function LoginLayout({ children }: { children: ReactNode }) {
   return children;
 }
