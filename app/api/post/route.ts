@@ -1,6 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/options';
+import { CustomSession, authOptions } from '../auth/[...nextauth]/options';
 import validateData, { ValidationError } from '@/lib/resouceValidator';
 import { createThreadSchema } from '@/schema/ThreadSchema';
 import ImageValidator from '@/lib/imageValidator';
@@ -10,7 +10,7 @@ import prisma from '@/lib/prisma';
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session: CustomSession | null = await getServerSession(authOptions);
 
     if (!session) {
       // return NextResponse.redirect("/login")
@@ -45,18 +45,15 @@ export async function POST(req: NextRequest) {
         await writeFile(filePath, buffer);
         data.image = fileName;
       } catch (error: any) {
-        console.log(error);
         return NextResponse.json({ error: error.message }, { status: 500 });
       }
     }
-
-    console.log(data);
 
     await prisma.thread.create({
       data: {
         content: payload.content,
         image: data.image ?? null,
-        author: session.user?.id,
+        author: session.user?.id!,
       },
     });
 
@@ -71,9 +68,38 @@ export async function POST(req: NextRequest) {
       // Handle the validation error
       return NextResponse.json({ error: error.message }, { status: 400 });
     } else {
-      console.log(error);
       // Handle other unexpected errors
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
+  }
+}
+
+export async function GET() {
+  try {
+    const session: CustomSession | null = await getServerSession(authOptions);
+
+    if (!session) {
+      // return NextResponse.redirect("/login")
+      return NextResponse.json({ message: 'Unathorize' }, { status: 403 });
+    }
+
+    const threads = await prisma.thread.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            username: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return NextResponse.json({ threads }, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }

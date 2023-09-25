@@ -74,7 +74,7 @@ export default function AddThreads() {
 
   return (
     <div className="flex justify-start items-start gap-4">
-      <UserAvatar image="" name="John Doe" />
+      <UserAvatar image="https://i.pravatar.cc/150?img=4" name="John Doe" />
       <div className="space-y-6 w-full">
         <Textarea
           className="bg-muted outline-none p-2 resize-none rounded-lg placeholder:font-normal text-md w-full"

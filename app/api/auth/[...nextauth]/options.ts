@@ -12,6 +12,7 @@ export interface CustomUser {
   name?: string | null;
   username?: string | null;
   email?: string | null;
+  image?: string | null;
 }
 
 export const authOptions: AuthOptions = {

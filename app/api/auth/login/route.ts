@@ -41,7 +41,6 @@ export async function POST(request: NextRequest) {
       // Handle the validation error
       return NextResponse.json(error.message);
     } else {
-      console.log(error);
       // Handle other unexpected errors
       return NextResponse.json(error.message);
     }
