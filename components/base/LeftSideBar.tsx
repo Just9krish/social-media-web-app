@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { navigationItems } from '@/constant';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import SignoutBtn from '../SignoutBtn';
 
 export default function LeftSideBar() {
   const pathname = usePathname();
@@ -28,6 +29,9 @@ export default function LeftSideBar() {
             </p>
           </Link>
         ))}
+      </div>
+      <div className="flex w-full flex-1 flex-col gap px-6 justify-end">
+        <SignoutBtn />
       </div>
     </section>
   );

@@ -27,3 +27,9 @@ export const navigationItems = [
     href: '/profile',
   },
 ];
+
+// allow supported image typ
+export const IMGEXTTYPE = ['svg', 'png', 'jpeg', 'jpg'];
+
+// allow supported image size in MB
+export const IMAGEALLOWEDSIZE = 2;
