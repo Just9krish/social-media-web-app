@@ -1,6 +1,6 @@
 'use client';
 import { X } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 export default function ImagePreviewCard({
   image,

@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import UserDhagaBar from './UserDhagaBar';
 import { Heart, MessageCircle, SendHorizonal } from 'lucide-react';
 import { Dhaga } from '@/utils/interfae';
-import { Config } from '@/config';
+import ImageViewer from '../general/ImageViewer';
 
 export default function DhagaCard({ dhaga }: { dhaga: Dhaga }) {
   return (
@@ -18,13 +17,7 @@ export default function DhagaCard({ dhaga }: { dhaga: Dhaga }) {
       </p>
       {dhaga.image && (
         <div className="w-full rounded-2xl overflow-hidden object-cover max-h-96">
-          <Image
-            src={`${Config.APP_URL}/uploads/${dhaga.image}`}
-            width={100}
-            height={100}
-            alt="uploaded image"
-            className="w-full object-cover"
-          />
+          <ImageViewer imgUrl={dhaga.image} />
         </div>
       )}
       <div className="flex gap-3.5">

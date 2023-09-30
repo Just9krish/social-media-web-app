@@ -1,4 +1,4 @@
-import UserAvatar from '../UserAvatar';
+import UserAvatar from '../general/UserAvatar';
 import { Button } from '../ui/button';
 
 interface IProps {

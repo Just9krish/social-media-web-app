@@ -1,4 +1,13 @@
-import { Bell, Home, PenSquare, Search, User } from 'lucide-react';
+import {
+  Bell,
+  Home,
+  PenSquare,
+  Search,
+  User,
+  Tag,
+  Users,
+  MessageCircle,
+} from 'lucide-react';
 
 export const navigationItems = [
   {
@@ -33,3 +42,22 @@ export const IMGEXTTYPE = ['svg', 'png', 'jpeg', 'jpg'];
 
 // allow supported image size in MB
 export const IMAGEALLOWEDSIZE = 2;
+
+// profile tabs
+export const profileTabs = [
+  {
+    value: 'dhagas',
+    label: 'Dhagas',
+    icon: <MessageCircle width={24} height={24} className="object-contain" />,
+  },
+  {
+    value: 'replies',
+    label: 'Replies',
+    icon: <Users width={24} height={24} className="object-contain" />,
+  },
+  // {
+  //   value: 'tagged',
+  //   label: 'Tagged',
+  //   icon: <Tag width={24} height={24} className="object-contain" />,
+  // },
+];

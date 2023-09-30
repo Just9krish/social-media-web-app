@@ -1,11 +1,11 @@
 'use client';
 
 import { Image } from 'lucide-react';
-import UserAvatar from '../UserAvatar';
+import UserAvatar from '../general/UserAvatar';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { ChangeEvent, useRef, useState, useTransition } from 'react';
-import ImagePreviewCard from '../ImagePreviewCard';
+import ImagePreviewCard from '../general/ImagePreviewCard';
 import axios from 'axios';
 import { toast } from '../ui/use-toast';
 import { useRouter } from 'next/navigation';

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import ToggleThemeButton from '../ToggleThemeButton';
+import ToggleThemeButton from '../general/ToggleThemeButton';
 
 export default function TopBar() {
   return (

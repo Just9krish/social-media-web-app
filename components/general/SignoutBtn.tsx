@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { signOut } from 'next-auth/react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 export default function SignoutBtn() {
   return (
