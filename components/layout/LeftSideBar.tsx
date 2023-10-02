@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { navigationItems } from '@/constant';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import SignoutBtn from '../general/SignoutBtn';
+import SignoutBtn from '../common/SignoutBtn';
 
 export default function LeftSideBar() {
   const pathname = usePathname();

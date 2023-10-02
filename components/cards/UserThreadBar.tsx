@@ -1,7 +1,5 @@
 import { MoreHorizontal } from 'lucide-react';
-import UserAvatar from '../general/UserAvatar';
-import { User } from '@/utils/interfae';
-import { Config } from '@/config';
+import UserAvatar from '../common/UserAvatar';
 import { formatDate } from '@/lib/utils';
 
 interface IProps {
@@ -10,7 +8,7 @@ interface IProps {
   image: string;
 }
 
-export default function UserDhagaBar({ createdAt, image, name }: IProps) {
+export default function UserThreadBar({ createdAt, image, name }: IProps) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">

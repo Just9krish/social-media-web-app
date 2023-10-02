@@ -2,10 +2,10 @@ import '../globals.css';
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/provider/ThemeProvider';
 import { ReactNode } from 'react';
-import BaseComponent from '@/components/base/BaseComponent';
+import BaseComponent from '@/components/layout/BaseComponent';
 
 export const metadata: Metadata = {
-  title: 'Dhaga: Home',
+  title: 'thread: Home',
   description: 'Thread Clone',
 };
 

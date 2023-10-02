@@ -17,16 +17,30 @@ model User {
   username  String    @unique @db.VarChar(60)
   name      String    @db.VarChar(60)
   createdAt DateTime  @default(now())
-  updatedAt DateTime?
-  Thread Thread[]
+  updatedAt DateTime  @default(now())
+  Thread    Thread[]
+  comment   Comment[]
 }
 
 model Thread {
-  id        String    @id @default(uuid())
-  user User @relation(fields: [author], references: [id], onDelete: Cascade)
-  author String
-  content String
-  image String?
+  id           String    @id @default(uuid())
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+  content      String
+  image        String?
+  comment      Comment[]
+  commentCount Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now())
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  thread    Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  threadId  String
+  content   String
   createdAt DateTime @default(now())
-  updatedAt DateTime?
+  updatedAt DateTime @default(now())
 }

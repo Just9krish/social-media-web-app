@@ -46,8 +46,8 @@ export const IMAGEALLOWEDSIZE = 2;
 // profile tabs
 export const profileTabs = [
   {
-    value: 'dhagas',
-    label: 'Dhagas',
+    value: 'threads',
+    label: 'threads',
     icon: <MessageCircle width={24} height={24} className="object-contain" />,
   },
   {

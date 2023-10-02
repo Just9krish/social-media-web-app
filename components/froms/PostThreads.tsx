@@ -1,17 +1,17 @@
 'use client';
 
 import { Image } from 'lucide-react';
-import UserAvatar from '../general/UserAvatar';
+import UserAvatar from '../common/UserAvatar';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
-import { ChangeEvent, useRef, useState, useTransition } from 'react';
-import ImagePreviewCard from '../general/ImagePreviewCard';
+import { ChangeEvent, useRef, useState } from 'react';
+import ImagePreviewCard from '../common/ImagePreviewCard';
 import axios from 'axios';
 import { toast } from '../ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { wait } from '@/lib/wait';
 
-export default function AddThreads() {
+export default function PostThreads() {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [content, setContent] = useState('');
@@ -64,7 +64,6 @@ export default function AddThreads() {
       });
     } catch (error: any) {
       setIsLoading(false);
-      console.log(error.response.data.message);
       toast({
         title: 'Error',
         description: error.response.data.message || error.message,
@@ -77,7 +76,7 @@ export default function AddThreads() {
       <UserAvatar image="https://i.pravatar.cc/150?img=4" name="John Doe" />
       <div className="space-y-6 w-full">
         <Textarea
-          className="bg-muted outline-none p-2 resize-none rounded-lg placeholder:font-normal text-md w-full"
+          className="bg-muted outline-none p-2 resize-none rounded-lg placeholder:font-normal text-md w-full h-32"
           placeholder="What is happening..."
           onChange={(e) => setContent(e.target.value)}
           value={content}

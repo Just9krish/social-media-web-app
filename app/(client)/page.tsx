@@ -1,24 +1,23 @@
-import DhagaCard from '@/components/cards/DhagaCard';
+import ThreadCard from '@/components/cards/ThreadCard';
 import '../globals.css';
-import AddThreads from '@/components/threads/AddThreads';
-import { getDhaga } from '@/methods/dhaga';
-import { Dhaga } from '@/utils/interfae';
+import PostThreads from '@/components/froms/PostThreads';
+import { getThread } from '@/methods/thread';
+import { thread } from '@/utils/interfae';
+import Spinner from '@/components/common/Spinner';
 
 export default async function Home() {
-  const dhagas: Array<Dhaga> = await getDhaga();
+  const threads: Array<thread> = await getThread();
 
-  if (!dhagas) {
-    return <div>Loading...</div>;
+  if (!threads) {
+    return <Spinner />;
   }
 
   return (
     <>
-      <AddThreads />
-      {/* <h1 className='text-heading2-bold dark:text-light-1 text-left'>Home</h1> */}
-
+      <PostThreads />
       <section className="mt-9 flex flex-col gap-10">
-        {dhagas.map((dhaga) => (
-          <DhagaCard dhaga={dhaga} key={dhaga.id} />
+        {threads.map((thread) => (
+          <ThreadCard thread={thread} key={thread.id} />
         ))}
       </section>
     </>

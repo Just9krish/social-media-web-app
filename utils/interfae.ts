@@ -12,9 +12,9 @@ export interface User {
   username: string;
 }
 
-export interface Dhaga {
+export interface thread {
   id: string;
-  author: string;
+  userId: string;
   content: string;
   createdAt: Date;
   updatedAt: Date | null;

@@ -1,7 +1,7 @@
 import { Config } from '@/config';
 import { headers } from 'next/headers';
 
-export async function getDhaga() {
+export async function getThread() {
   try {
     const res = await fetch(`${Config.APP_URL}/api/post`, {
       cache: 'no-cache',
@@ -9,19 +9,19 @@ export async function getDhaga() {
     });
 
     if (!res.ok) {
-      throw new Error('Failed to fetch dhagas');
+      throw new Error('Failed to fetch threads');
     }
 
     const data = await res.json();
     return data.threads;
   } catch (error: any) {
-    console.error('Error fetching dhagas:', error.message);
+    console.log(error);
     throw new Error(error.message);
   }
 }
 
-// Get user dhagas
-export async function getUserDhaga() {
+// Get user threads
+export async function getUserThread() {
   try {
     const res = await fetch(`${Config.APP_URL}/api/user/post`, {
       cache: 'no-cache',
@@ -29,13 +29,13 @@ export async function getUserDhaga() {
     });
 
     if (!res.ok) {
-      throw new Error('Failed to fetch user dhagas');
+      throw new Error('Failed to fetch user threads');
     }
 
     const data = await res.json();
-    return data.dhagas;
+    return data.threads;
   } catch (error: any) {
-    console.error('Error fetching user dhagas:', error.message);
+    console.error('Error fetching user threads:', error.message);
     throw new Error(error.message);
   }
 }
@@ -56,7 +56,27 @@ export async function getUserSuggestion() {
 
     return data.users;
   } catch (error: any) {
-    console.error('Error fetching user dhagas:', error.message);
+    console.error('Error While getting user suggestions:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+// add reply to thread
+export async function addReply({
+  threadId,
+  content,
+}: {
+  threadId: string;
+  content: string;
+}) {
+  try {
+    const res = await fetch('/api/reply', {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify({ threadId, content }),
+    });
+  } catch (error: any) {
+    console.error('Error While adding reply:', error.message);
     throw new Error(error.message);
   }
 }

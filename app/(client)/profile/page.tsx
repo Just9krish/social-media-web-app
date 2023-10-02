@@ -2,12 +2,12 @@ import {
   CustomSession,
   authOptions,
 } from '@/app/api/auth/[...nextauth]/options';
-import UserAvatar from '@/components/general/UserAvatar';
+import UserAvatar from '@/components/common/UserAvatar';
 import { MoveLeft } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { profileTabs } from '@/constant';
-import DhagaTab from '@/components/threads/DhagaTab';
+import ThreadTab from '@/components/threads/ThreadTab';
 
 export default async function page() {
   const session: CustomSession | null = await getServerSession(authOptions);
@@ -57,7 +57,7 @@ export default async function page() {
               className="w-full dark:text-light-1"
               key={`content-${tab.label}`}
             >
-              <DhagaTab componentType={tab.value} />
+              <ThreadTab componentType={tab.value} />
             </TabsContent>
           ))}
         </Tabs>

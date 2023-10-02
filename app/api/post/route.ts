@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
       data: {
         content: payload.content,
         image: data.image ?? null,
-        author: session.user?.id!,
+        userId: session.user?.id!,
       },
     });
 
@@ -64,12 +64,13 @@ export async function POST(req: NextRequest) {
       { status: 200 },
     );
   } catch (error: any) {
+    console.log(error)
     if (error instanceof ValidationError) {
       // Handle the validation error
       return NextResponse.json({ error: error.message }, { status: 400 });
     } else {
       // Handle other unexpected errors
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
   }
 }
@@ -98,8 +99,10 @@ export async function GET() {
       },
     });
 
+
     return NextResponse.json({ threads }, { status: 200 });
   } catch (error: any) {
+    console.log(error);
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }
