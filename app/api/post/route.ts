@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
       { status: 200 },
     );
   } catch (error: any) {
-    console.log(error)
+    console.log(error);
     if (error instanceof ValidationError) {
       // Handle the validation error
       return NextResponse.json({ error: error.message }, { status: 400 });
@@ -98,7 +98,6 @@ export async function GET() {
         createdAt: 'desc',
       },
     });
-
 
     return NextResponse.json({ threads }, { status: 200 });
   } catch (error: any) {

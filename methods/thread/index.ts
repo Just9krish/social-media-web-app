@@ -1,7 +1,7 @@
 import { Config } from '@/config';
 import { headers } from 'next/headers';
 
-export async function getThread() {
+export async function getThreads() {
   try {
     const res = await fetch(`${Config.APP_URL}/api/post`, {
       cache: 'no-cache',
@@ -77,6 +77,27 @@ export async function addReply({
     });
   } catch (error: any) {
     console.error('Error While adding reply:', error.message);
+    throw new Error(error.message);
+  }
+}
+
+// get thread by id
+
+export async function getThreadById(threadId: string) {
+  try {
+    const res = await fetch(`${Config.APP_URL}/api/post/${threadId}`, {
+      cache: 'no-cache',
+      headers: headers(),
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch thread');
+    }
+
+    const data = await res.json();
+    return data.thread;
+  } catch (error: any) {
+    console.log(error);
     throw new Error(error.message);
   }
 }

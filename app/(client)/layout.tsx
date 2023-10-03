@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 import BaseComponent from '@/components/layout/BaseComponent';
 
 export const metadata: Metadata = {
-  title: 'thread: Home',
+  title: 'Thread: Home',
   description: 'Thread Clone',
 };
 

@@ -12,12 +12,25 @@ export interface User {
   username: string;
 }
 
-export interface thread {
+export interface Comment {
   id: string;
+  user: User;
   userId: string;
+  thread: thread;
+  threadId: string;
   content: string;
   createdAt: Date;
-  updatedAt: Date | null;
-  image?: string;
+  updatedAt: Date;
+}
+
+export interface thread {
+  id: string;
   user: User;
+  userId: string;
+  content: string;
+  image?: string;
+  commentCount: number;
+  comment: Comment[] | null;
+  createdAt: Date;
+  updatedAt: Date;
 }

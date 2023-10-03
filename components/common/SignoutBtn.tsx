@@ -13,13 +13,15 @@ import {
 } from '@/components/ui/alert-dialog';
 import { signOut } from 'next-auth/react';
 import { Button } from '../ui/button';
+import { LogOut } from 'lucide-react';
 
 export default function SignoutBtn() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="sm" className="mr-5">
-          Sign Out
+        <Button size="sm" className="flex gap-4">
+          <LogOut/>
+          <span className='max-lg:hidden'>Logout</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

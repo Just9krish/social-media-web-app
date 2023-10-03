@@ -100,7 +100,7 @@ export default function PostReply({
                       <FormItem>
                         <FormControl>
                           <Textarea
-                            className="focus:outline-0 focus:ring-0"
+                            className="focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important"
                             placeholder={`Reply to ${thread.user.name}...`}
                             {...field}
                           />

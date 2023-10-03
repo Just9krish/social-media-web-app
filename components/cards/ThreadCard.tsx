@@ -6,22 +6,30 @@ import { thread } from '@/utils/interfae';
 import ImageViewer from '../common/ImageViewer';
 import PostReply from '../froms/PostReply';
 import { useState } from 'react';
+import Link from 'next/link';
 
-export default function ThreadCard({ thread }: { thread: thread }) {
+export default function ThreadCard({
+  thread,
+  noRedirect,
+}: {
+  thread: thread;
+  noRedirect?: boolean;
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
-      <article className="space-y-3 w-full rounded-xl dark:bg-dark-2 p-7">
+      <article className="space-y-4 w-full rounded-xl dark:bg-dark-2 p-7">
         <UserThreadBar
           createdAt={thread.createdAt}
           name={thread.user.name}
           image={''}
         />
-
-        <p className="mt-2 text-small-regular dark:text-light-2">
-          {thread.content}
-        </p>
+        <Link href={noRedirect ? '#' : `/threads/${thread.id}`}>
+          <p className="mt-2 text-small-regular dark:text-light-2">
+            {thread.content}
+          </p>
+        </Link>
         {thread.image && (
           <div className="w-full rounded-2xl overflow-hidden object-cover max-h-96">
             <ImageViewer imgUrl={thread.image} />
@@ -37,8 +45,8 @@ export default function ThreadCard({ thread }: { thread: thread }) {
           <SendHorizonal width={20} height={20} />
         </div>
         <div className="flex gap-3.5">
-          <span>3 Replies</span>
-          <span>2 Replies</span>
+          <span>2 Likes</span>
+          <span>{thread.commentCount} Replies</span>
         </div>
       </article>
       <PostReply
