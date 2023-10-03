@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unathorized' }, { status: 401 });
     }
 
-    const threads = await prisma.thread.findMany({
+    const comments = await prisma.comment.findMany({
       where: {
         userId: session.user?.id!,
       },
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return NextResponse.json({ threads }, { status: 200 });
+    return NextResponse.json({ comments }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

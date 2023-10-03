@@ -1,6 +1,7 @@
 import { MoreHorizontal } from 'lucide-react';
 import UserAvatar from '../common/UserAvatar';
 import { formatDate } from '@/lib/utils';
+import DeleteThread from '../froms/DeleteThread';
 
 interface IProps {
   createdAt: Date;

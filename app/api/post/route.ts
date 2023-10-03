@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
     if (!session) {
       // return NextResponse.redirect("/login")
-      return NextResponse.json({ message: 'Unathorize' }, { status: 403 });
+      return NextResponse.json({ message: 'Unathorize' }, { status: 401 });
     }
 
     const formData = await req.formData();
@@ -81,7 +81,7 @@ export async function GET() {
 
     if (!session) {
       // return NextResponse.redirect("/login")
-      return NextResponse.json({ message: 'Unathorize' }, { status: 403 });
+      return NextResponse.json({ message: 'Unathorize' }, { status: 401 });
     }
 
     const threads = await prisma.thread.findMany({

@@ -40,7 +40,7 @@ export async function getUserThread() {
   }
 }
 
-// get users
+// GET users suggestions
 export async function getUserSuggestion() {
   try {
     const res = await fetch(`${Config.APP_URL}/api/user`, {
@@ -61,7 +61,7 @@ export async function getUserSuggestion() {
   }
 }
 
-// add reply to thread
+// POST reply to thread
 export async function addReply({
   threadId,
   content,
@@ -81,8 +81,7 @@ export async function addReply({
   }
 }
 
-// get thread by id
-
+// GET thread by id
 export async function getThreadById(threadId: string) {
   try {
     const res = await fetch(`${Config.APP_URL}/api/post/${threadId}`, {
@@ -98,6 +97,27 @@ export async function getThreadById(threadId: string) {
     return data.thread;
   } catch (error: any) {
     console.log(error);
+    throw new Error(error.message);
+  }
+}
+
+// GET users comments
+export async function getUserComments() {
+  try {
+    const res = await fetch(`${Config.APP_URL}/api/user/comment`, {
+      cache: 'no-cache',
+      headers: headers(),
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch users');
+    }
+
+    const data = await res.json();
+
+    return data.comments;
+  } catch (error: any) {
+    console.error('Error While getting user suggestions:', error.message);
     throw new Error(error.message);
   }
 }

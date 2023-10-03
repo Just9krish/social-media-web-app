@@ -7,7 +7,7 @@ import { MoveLeft } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { profileTabs } from '@/constant';
-import ThreadTab from '@/components/threads/ThreadTab';
+import CustomTab from '@/components/threads/CustomTab';
 
 export default async function page() {
   const session: CustomSession | null = await getServerSession(authOptions);
@@ -57,7 +57,7 @@ export default async function page() {
               className="w-full dark:text-light-1"
               key={`content-${tab.label}`}
             >
-              <ThreadTab componentType={tab.value} />
+              <CustomTab componentType={tab.value} />
             </TabsContent>
           ))}
         </Tabs>

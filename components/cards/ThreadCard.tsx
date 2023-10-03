@@ -7,6 +7,8 @@ import ImageViewer from '../common/ImageViewer';
 import PostReply from '../froms/PostReply';
 import { useState } from 'react';
 import Link from 'next/link';
+import DeleteThread from '../froms/DeleteThread';
+import { useSession } from 'next-auth/react';
 
 export default function ThreadCard({
   thread,
@@ -16,6 +18,8 @@ export default function ThreadCard({
   noRedirect?: boolean;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data } = useSession();
+  console.log(data);
 
   return (
     <>
@@ -43,6 +47,11 @@ export default function ThreadCard({
             onClick={() => setIsModalOpen(true)}
           />
           <SendHorizonal width={20} height={20} />
+          <DeleteThread
+            authorId={thread.user.id}
+            currentUserId={data?.user.id}
+            threadId={thread.id}
+          />
         </div>
         <div className="flex gap-3.5">
           <span>2 Likes</span>

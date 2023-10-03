@@ -20,8 +20,8 @@ export default function SignoutBtn() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button size="sm" className="flex gap-4">
-          <LogOut/>
-          <span className='max-lg:hidden'>Logout</span>
+          <LogOut />
+          <span className="max-lg:hidden">Logout</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
