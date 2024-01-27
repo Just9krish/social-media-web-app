@@ -1,25 +1,21 @@
-import {
-  CustomSession,
-  authOptions,
-} from '@/app/api/auth/[...nextauth]/options';
 import UserAvatar from '@/components/common/UserAvatar';
 import { MoveLeft } from 'lucide-react';
-import { getServerSession } from 'next-auth';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { profileTabs } from '@/constant';
 import CustomTab from '@/components/threads/CustomTab';
-import { getUserComments, getUserThread } from '@/methods/thread';
+import { getUser } from '@/methods/user';
+import { ShowUser } from '@/utils/interfae';
 
-export default async function page() {
-  const session: CustomSession | null = await getServerSession(authOptions);
+export default async function ViewUser({
+  params,
+}: {
+  params: { userId: string };
+}) {
+  const user: ShowUser | null = await getUser(params.userId);
 
-  if (!session) {
+  if (!user) {
     return null;
   }
-  const { user } = session;
-
-  const threads = await getUserThread();
-  const comments = await getUserComments();
 
   return (
     <section>
@@ -32,7 +28,7 @@ export default async function page() {
       </div>
 
       <div className="flex  items-center gap-4">
-        <UserAvatar name={user?.name ?? 'Guest'} image={user?.image ?? ''} />
+        <UserAvatar name={user?.name ?? 'Guest'} image={user?.image || ''} />
 
         <div className="">
           <h4 className="font-bold">{user?.name}</h4>
@@ -62,8 +58,8 @@ export default async function page() {
               key={`content-${tab.label}`}
             >
               <CustomTab
-                comments={comments}
-                threads={threads}
+                comments={user.comment}
+                threads={user.Thread}
                 componentType={tab.value}
               />
             </TabsContent>

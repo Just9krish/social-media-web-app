@@ -2,7 +2,7 @@
 
 import UserThreadBar from './UserThreadBar';
 import { Heart, MessageCircle, SendHorizonal } from 'lucide-react';
-import { thread } from '@/utils/interfae';
+import { ShowThread, thread } from '@/utils/interfae';
 import ImageViewer from '../common/ImageViewer';
 import PostReply from '../froms/PostReply';
 import { useState } from 'react';
@@ -14,11 +14,15 @@ export default function ThreadCard({
   thread,
   noRedirect,
 }: {
-  thread: thread;
+  thread: thread | ShowThread;
   noRedirect?: boolean;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data } = useSession();
+
+  if (!data || !data?.user) {
+    return null;
+  }
 
   return (
     <>
@@ -48,7 +52,7 @@ export default function ThreadCard({
           <SendHorizonal width={20} height={20} />
           <DeleteThread
             authorId={thread.user.id}
-            currentUserId={data?.user.id}
+            currentUserId={data?.user.id!}
             threadId={thread.id}
           />
         </div>

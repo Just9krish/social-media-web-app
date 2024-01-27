@@ -20,6 +20,7 @@ export default async function RightSideBar() {
                 name={user.name}
                 username={user.username}
                 key={user.id}
+                userId={user.id}
               />
             ))}
         </div>

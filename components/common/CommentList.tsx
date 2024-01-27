@@ -1,9 +1,7 @@
-import { getUserComments } from '@/methods/thread';
 import { Comment } from '@/utils/interfae';
 import CommentCard from '../cards/CommentCard';
 
-export default async function CommentList() {
-  const comments: Comment[] = await getUserComments();
+export default function CommentList({ comments }: { comments: Comment[] }) {
   return (
     <>
       {comments && comments.length > 0 ? (

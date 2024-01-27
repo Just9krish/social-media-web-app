@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
-import { thread } from '@/utils/interfae';
+import { ShowThread, thread } from '@/utils/interfae';
 import { useSession } from 'next-auth/react';
 import UserAvatar from '../common/UserAvatar';
 import {
@@ -31,7 +31,7 @@ import { Loader2 } from 'lucide-react';
 import { toast } from '../ui/use-toast';
 
 interface IProps {
-  thread: thread;
+  thread: thread | ShowThread;
   isModalOpen: boolean;
   setIsModalOpen: (open: boolean) => void;
 }

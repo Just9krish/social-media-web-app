@@ -1,9 +1,11 @@
-import { getUserThread } from '@/methods/thread';
-import { thread } from '@/utils/interfae';
+import { ShowThread, thread } from '@/utils/interfae';
 import ThreadCard from '../cards/ThreadCard';
 
-export default async function ThreadsList() {
-  const threads: thread[] = await getUserThread();
+export default function ThreadsList({
+  threads: threads,
+}: {
+  threads: thread[] | ShowThread[];
+}) {
   return (
     <>
       {threads && threads.length > 0 ? (
