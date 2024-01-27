@@ -8,7 +8,7 @@ export default async function CommentList() {
     <>
       {comments && comments.length > 0 ? (
         comments.map((comment) => (
-          <CommentCard comment={comment} key={comment.id} />
+          <CommentCard isAuth={true} comment={comment} key={comment.id} />
         ))
       ) : (
         <p className="text-center font-bold mt-5 text-xl">

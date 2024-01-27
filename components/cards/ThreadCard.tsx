@@ -19,7 +19,6 @@ export default function ThreadCard({
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data } = useSession();
-  console.log(data);
 
   return (
     <>
